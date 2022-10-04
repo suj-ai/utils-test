@@ -1,5 +1,4 @@
 import MixpanelBrowser, { Mixpanel } from 'mixpanel-browser';
-import { isNil } from 'lodash';
 
 // import { MIXPANEL_TOKEN } from 'constants/analytics.constants';
 
@@ -39,12 +38,12 @@ class Analytics {
     }
 
     try {
-      const properties = isNil(data) ? { token: token } : { token: token, ...data };
+      const properties = { token: token, ...data };
       const reqData = {
         event: eventName,
         properties: properties,
       };
-      const body = new URLSearchParams();
+      const body: any = new URLSearchParams();
       body.append('data', JSON.stringify(reqData));
       const options = {
         method: 'POST',
@@ -57,5 +56,4 @@ class Analytics {
   }
 }
 
-export { token };
-export default Analytics.Instance;
+export { token, Analytics };
