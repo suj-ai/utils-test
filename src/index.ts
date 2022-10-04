@@ -57,4 +57,5 @@ class Analytics {
   }
 }
 
+export { token };
 export default Analytics.Instance;
