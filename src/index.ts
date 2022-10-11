@@ -17,7 +17,7 @@ class Analytics {
     return this._instance || (this._instance = new this());
   }
 
-  async setToken(Token: string) {
+  setToken(Token: string) {
     MIXPANEL_TOKEN = Token;
   }
   async trackEvent(EventName: string, data?: object) {
