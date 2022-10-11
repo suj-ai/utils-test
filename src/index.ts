@@ -5,7 +5,6 @@ import { MIXPANEL_TOKEN } from './Constants/constants';
 class Analytics {
   private static _instance: Analytics;
   private mixpanelApi: Mixpanel;
-  private _skipAnalytics: boolean = false;
 
   private constructor() {
     this.mixpanelApi = MixpanelBrowser;
@@ -25,9 +24,6 @@ class Analytics {
   async trackEvent(EventName: string, data?: object) {
     return new Promise((resolve, reject) => {
       try {
-        if (this._skipAnalytics) {
-          return resolve(true);
-        }
         this.mixpanelApi.track(EventName, data, () => {
           resolve(true);
         });
@@ -38,10 +34,6 @@ class Analytics {
   }
 
   async trackAnonymousEvent(eventName: string, data?: object) {
-    if (this._skipAnalytics) {
-      return;
-    }
-
     try {
       const properties = isNil(data) ? { token: MIXPANEL_TOKEN } : { token: MIXPANEL_TOKEN, ...data };
       const reqData = {
