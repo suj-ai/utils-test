@@ -1,7 +1,7 @@
 import MixpanelBrowser, { Mixpanel } from 'mixpanel-browser';
 import { isNil } from 'lodash';
 
-let MIXPANEL_TOKEN: string = '71901d4f15f532df35390d2c90e7042b';
+// let MIXPANEL_TOKEN: string = '71901d4f15f532df35390d2c90e7042b';
 
 class Analytics {
   private static _instance: Analytics;
@@ -11,7 +11,7 @@ class Analytics {
   private constructor() {
     this.mixpanelApi = MixpanelBrowser;
     this.mixpanelApi.init(
-      MIXPANEL_TOKEN,
+      '71901d4f15f532df35390d2c90e7042b',
       {
         debug: true,
         ignore_dnt: true,
@@ -24,9 +24,9 @@ class Analytics {
     return this._instance || (this._instance = new this());
   }
 
-  setToken(Token: string) {
-    MIXPANEL_TOKEN = Token;
-  }
+  // setToken(Token: string) {
+  //   MIXPANEL_TOKEN = Token;
+  // }
   async trackEvent(EventName: string, data?: object) {
     return new Promise((resolve, reject) => {
       try {
@@ -48,7 +48,9 @@ class Analytics {
     }
 
     try {
-      const properties = isNil(data) ? { token: MIXPANEL_TOKEN } : { token: MIXPANEL_TOKEN, ...data };
+      const properties = isNil(data)
+        ? { token: '71901d4f15f532df35390d2c90e7042b' }
+        : { token: '71901d4f15f532df35390d2c90e7042b', ...data };
       const reqData = {
         event: eventName,
         properties: properties,
