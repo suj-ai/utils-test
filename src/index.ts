@@ -1,7 +1,7 @@
 import MixpanelBrowser, { Mixpanel } from 'mixpanel-browser';
 import { isNil } from 'lodash';
 
-let MIXPANEL_TOKEN: string = '';
+let MIXPANEL_TOKEN: string = '71901d4f15f532df35390d2c90e7042b';
 
 class Analytics {
   private static _instance: Analytics;
@@ -10,7 +10,14 @@ class Analytics {
 
   private constructor() {
     this.mixpanelApi = MixpanelBrowser;
-    this.mixpanelApi.init(MIXPANEL_TOKEN, {}, '');
+    this.mixpanelApi.init(
+      MIXPANEL_TOKEN,
+      {
+        debug: true,
+        ignore_dnt: true,
+      },
+      '',
+    );
   }
 
   public static get Instance(): Analytics {
