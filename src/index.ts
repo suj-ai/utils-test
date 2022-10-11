@@ -1,8 +1,8 @@
 import MixpanelBrowser, { Mixpanel } from 'mixpanel-browser';
+import { isNil } from 'lodash';
 
-// import { MIXPANEL_TOKEN } from 'constants/analytics.constants';
+let MIXPANEL_TOKEN: string = '';
 
-let token = '';
 class Analytics {
   private static _instance: Analytics;
   private mixpanelApi: Mixpanel;
@@ -10,13 +10,16 @@ class Analytics {
 
   private constructor() {
     this.mixpanelApi = MixpanelBrowser;
-    this.mixpanelApi.init(token, {}, '');
+    this.mixpanelApi.init(MIXPANEL_TOKEN, {}, '');
   }
 
-  public static get Instance() {
+  public static get Instance(): Analytics {
     return this._instance || (this._instance = new this());
   }
 
+  async setToken(Token: string) {
+    MIXPANEL_TOKEN = Token;
+  }
   async trackEvent(EventName: string, data?: object) {
     return new Promise((resolve, reject) => {
       try {
@@ -38,7 +41,7 @@ class Analytics {
     }
 
     try {
-      const properties = { token: token, ...data };
+      const properties = isNil(data) ? { token: MIXPANEL_TOKEN } : { token: MIXPANEL_TOKEN, ...data };
       const reqData = {
         event: eventName,
         properties: properties,
@@ -54,7 +57,10 @@ class Analytics {
       console.error('Error tracking anonymous mixpanel event', err);
     }
   }
+
+  reset() {
+    this.mixpanelApi.reset();
+  }
 }
 
-export { token };
 export default Analytics.Instance;

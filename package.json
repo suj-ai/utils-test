@@ -31,6 +31,7 @@
   "homepage": "https://github.com/caki0915/my-awesome-greeter#readme",
   "devDependencies": {
     "@types/jest": "^22.2.3",
+    "@types/lodash": "^4.14.123",
     "codecov": "^3.1.0",
     "jest": "^23.6.0",
     "prettier": "^1.13.2",
@@ -44,6 +45,7 @@
   ],
   "dependencies": {
     "@types/mixpanel-browser": "^2.38.0",
+    "lodash": "^4.17.15",
     "mixpanel-browser": "^2.45.0"
   }
 }
